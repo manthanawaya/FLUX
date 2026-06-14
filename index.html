@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FLUX - Adaptive Difficulty Survival Arena</title>
+    <meta name="description" content="Experience FLUX, an intense 2D survival arcade game where the AI dynamically adapts to your stress, movement speed, and reaction time in real-time. Feel the Flow!">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="game-container">
+        <!-- Main Canvas -->
+        <canvas id="game-canvas"></canvas>
+
+        <!-- HUD Layer -->
+        <div id="hud-container" class="ui-layer hidden">
+            <div class="hud-top">
+                <div class="hud-box">
+                    <span class="label">SCORE</span>
+                    <span id="score-display" class="value">000,000</span>
+                </div>
+                <div class="hud-box streak-container">
+                    <span class="label">STREAK</span>
+                    <span id="multiplier-display" class="value pulse-color">1.0x</span>
+                </div>
+                <div id="tier-badge" class="tier-lullaby">LULLABY</div>
+            </div>
+            
+            <div class="hud-bottom">
+                <div class="stress-container">
+                    <div class="stress-header">
+                        <span class="label">STRESS INDEX</span>
+                        <span id="stress-value" class="value">0%</span>
+                    </div>
+                    <div class="stress-bar-track">
+                        <div id="stress-bar-fill"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Start Screen -->
+        <div id="start-screen" class="screen-overlay">
+            <div class="screen-content">
+                <h1 class="logo glow-text">FLUX</h1>
+                <p class="subtitle">ADAPTIVE SURVIVAL ARENA</p>
+                
+                <div class="instructions-card">
+                    <h3>HOW TO SURVIVE</h3>
+                    <ul>
+                        <li>Move your <strong>Glowing Orb</strong> using Mouse or Touch.</li>
+                        <li>Dodge the incoming threats spawning from the arena walls.</li>
+                        <li>Dodge warned event zones immediately to log good reaction speeds.</li>
+                        <li>Maintain composure—panicked movements and hits increase difficulty!</li>
+                    </ul>
+                </div>
+
+                <button id="start-btn" class="btn-primary">ENTER THE FLUX</button>
+                <div class="credits">Solutions Architect & Game Dev Hackathon Demo</div>
+            </div>
+        </div>
+
+        <!-- Death Screen -->
+        <div id="death-screen" class="screen-overlay hidden">
+            <div class="screen-content scrollable">
+                <h2 class="glow-text text-danger">CONNECTION LOST</h2>
+                <p class="subtitle">SESSION LOG ANALYZED</p>
+                
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <span class="stat-label">FINAL SCORE</span>
+                        <span id="final-score" class="stat-value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">PEAK TIER</span>
+                        <span id="peak-tier" class="stat-value">LULLABY</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">AVG RX TIME</span>
+                        <span id="avg-reaction" class="stat-value">0ms</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">BEST STREAK</span>
+                        <span id="best-streak" class="stat-value">1.0x</span>
+                    </div>
+                </div>
+
+                <!-- Session Analytics Chart -->
+                <div class="chart-container">
+                    <h3>BIOMETRIC & DIFFICULTY TIMELINE</h3>
+                    <canvas id="analytics-canvas" width="600" height="200"></canvas>
+                </div>
+
+                <div class="actions">
+                    <button id="restart-btn" class="btn-primary">RESPAWN</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Toast / Notifications -->
+        <div id="toast-container"></div>
+
+        <!-- Developer Debug Overlay -->
+        <div id="debug-panel" class="hidden">
+            <h3>ADE DIAGNOSTICS <span class="badge">DEV MODE</span></h3>
+            <div class="debug-grid">
+                <div>Reaction Buffer: <span id="debug-reaction-buf">[]</span></div>
+                <div>Movement Var: <span id="debug-movement-var">0.00</span></div>
+                <div>Hesitation Ratio: <span id="debug-hesitation-ratio">0.00</span></div>
+                <div>Input Burst Rate: <span id="debug-burst-rate">0</span></div>
+                <div>Hysteresis State: <span id="debug-hyst-buffer">0/2</span></div>
+            </div>
+            <div class="debug-note">Press [Shift + D] to Force Difficulty | [T] to run Unit Tests</div>
+        </div>
+        
+        <!-- Unit Tests Results Overlay -->
+        <div id="test-overlay" class="hidden">
+            <div class="test-header">
+                <h3>Unit Test Execution</h3>
+                <button id="close-tests-btn">Close</button>
+            </div>
+            <div id="test-results-list"></div>
+        </div>
+    </div>
+
+    <!-- ES6 Game Script Modules -->
+    <script type="module" src="js/game.js"></script>
+</body>
+</html>
